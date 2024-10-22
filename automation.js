@@ -1,8 +1,14 @@
 const inquirer = require("inquirer");
+const { openBrowser, goto } = require('taiko');
 
-const getResults = ({ resultLink, semester, admissionYear, branch }) => {
-  console.log(resultLink);
-}; 
+const openResultPage = async (url) => {
+  await openBrowser({ headless: false });
+  await goto(url);
+};
+
+const getResults = async ({ resultLink, semester, admissionYear, branch }) => {
+  await openResultPage(resultLink);
+};
 
 const getInputs = async () => {
   return inquirer.prompt([
