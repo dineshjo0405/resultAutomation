@@ -48,13 +48,13 @@ This project is a result automation tool built using **Node.js**, **Inquirer.js*
     ```
 2. You will be prompted to provide the following information:
 
-  - Result Link: The URL to the result page. (Default: https://sbtet.ap.gov.in/APSBTET/results.do)
+    - Result Link: The URL to the result page. (Default: https://sbtet.ap.gov.in/APSBTET/results.do)
 
-  -  Semester: Select the semester for which you want to check results. (Options: 1YEAR, 3SEM, 4SEM, 5SEM, 6SEM)
+    -  Semester: Select the semester for which you want to check results. (Options: 1YEAR, 3SEM, 4SEM, 5SEM, 6SEM)
 
-  -  Admission Year: Enter the admission year, Default: 22(2022).
+    -  Admission Year: Enter the admission year, Default: 22(2022).
 
-  - Branch: Select the branch (Options: CM, EC, M, EE).
+    - Branch: Select the branch (Options: CM, EC, M, EE).
 
 3. The tool will generate the pin numbers for the students and begin the automated result retrieval process.
 
