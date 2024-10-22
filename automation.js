@@ -1,18 +1,18 @@
 const inquirer = require("inquirer");
 const { openBrowser, goto, write, into, textBox, click, dropDown, evaluate, closeBrowser, waitFor } = require('taiko');
 
-const getTableHeaderData = async (label) => {
-  return await evaluate((label) => {
+const getGrandTotal = async () => {
+  return await evaluate(() => {
     const tableHeaders = Array.from(document.querySelectorAll('th'));
     const cell = tableHeaders.find((th) =>
-      th.textContent.includes(label)
+      th.textContent.includes('Grand Total')
     );
     return cell.nextElementSibling.textContent;
-  }, label);
+  });
 };
 
 const displayResult = async (pin) => {
-  const grandTotal = await getTableHeaderData('Grand Total');
+  const grandTotal = await getGrandTotal();
   console.log(pin, grandTotal);
 };
 
