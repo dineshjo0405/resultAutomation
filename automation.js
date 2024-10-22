@@ -1,5 +1,9 @@
 const inquirer = require("inquirer");
 
+const getResults = ({ resultLink, semester, admissionYear, branch }) => {
+  console.log(resultLink);
+}; 
+
 const getInputs = async () => {
   return inquirer.prompt([
     {
@@ -32,9 +36,8 @@ const getInputs = async () => {
 };
 
 const startAutomation = async () => {
-  console.log('automation started...');
   const inputs = await getInputs();
-  console.log(inputs)
+  getResults(inputs);
 };
 
 startAutomation();
