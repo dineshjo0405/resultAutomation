@@ -1,13 +1,24 @@
 const inquirer = require("inquirer");
 const { openBrowser, goto } = require('taiko');
 
+const getPinNumbers = (branch, admissionYear) => {
+  const pinNumbers = [];
+  for (let id = 1; id <= 66; id++) {
+    const paddedId = id < 10 ? `0${id}` : `${id}`;
+    pinNumbers.push(`${admissionYear}101-${branch}-0${paddedId}`);
+  }
+  return pinNumbers;
+};
+
 const openResultPage = async (url) => {
-  await openBrowser({ headless: false });
+  await openBrowser({ headless: true });
   await goto(url);
 };
 
 const getResults = async ({ resultLink, semester, admissionYear, branch }) => {
   await openResultPage(resultLink);
+  const pinNumbers = getPinNumbers(branch, admissionYear);
+  console.log(pinNumbers)
 };
 
 const getInputs = async () => {
