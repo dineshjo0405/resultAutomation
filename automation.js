@@ -1,6 +1,10 @@
 const inquirer = require("inquirer");
 const { openBrowser, goto, write, into, textBox } = require('taiko');
 
+const selectSemester = async (semester) => {
+  await dropDown({ id: 'grade2' }).select(semester);
+}
+
 const fillPinNumber = async (pinNumber) => {
   await write(pinNumber, into(textBox({ id: 'aadhar1' })));
 }
@@ -24,6 +28,7 @@ const getResults = async ({ resultLink, semester, admissionYear, branch }) => {
   const pinNumbers = getPinNumbers(branch, admissionYear);
   pinNumbers.forEach(async pin => {
     await fillPinNumber(pin);
+    await selectSemester(semester);
   })
 };
 
