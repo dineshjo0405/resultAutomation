@@ -3,8 +3,8 @@ const { openBrowser, goto, write, into, textBox, click, dropDown, evaluate, clos
 
 const getTableHeaderData = async (label) => {
   return await evaluate((label) => {
-    const tableHeaders = document.querySelectorAll('th');
-    const cell = [...tableHeaders].find((th) =>
+    const tableHeaders = Array.from(document.querySelectorAll('th'));
+    const cell = tableHeaders.find((th) =>
       th.textContent.includes(label)
     );
     return cell.nextElementSibling.textContent;
