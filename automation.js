@@ -1,13 +1,18 @@
 const inquirer = require("inquirer");
-const { openBrowser, goto, write, into, textBox, click, dropDown, evaluate, closeBrowser } = require('taiko');
+const { openBrowser, goto, write, into, textBox, click, dropDown, evaluate, closeBrowser, waitFor } = require('taiko');
+
+const getTableHeaderData = async (label) => {
+  return await evaluate((label) => {
+    const tableHeaders = document.querySelectorAll('th');
+    const cell = [...tableHeaders].find((th) =>
+      th.textContent.includes(label)
+    );
+    return cell.nextElementSibling.textContent;
+  }, label);
+};
 
 const displayResult = async (pin) => {
-  const grandTotal = await evaluate(() => {
-    const cell = [...document.querySelectorAll('th')].find((th) =>
-      th.textContent.includes('Grand Total')
-    );
-    return cell ? cell.nextElementSibling?.textContent || null : null;
-  });
+  const grandTotal = await getTableHeaderData('Grand Total');
   console.log(pin, grandTotal);
 };
 
@@ -29,7 +34,7 @@ const getPinNumbers = (branch, admissionYear, collegeCode = '101') => {
 };
 
 const openResultPage = async (url) => {
-  await openBrowser({ headless: false });
+  await openBrowser({ headless: true });
   await goto(url);
 };
 
