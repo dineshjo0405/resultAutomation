@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const { openBrowser, goto, write, into, textBox, click, dropDown, evaluate } = require('taiko');
+const { openBrowser, goto, write, into, textBox, click, dropDown, evaluate, closeBrowser } = require('taiko');
 
 const displayResult = async (pin) => {
   const grandTotal = await evaluate(() => {
@@ -34,18 +34,24 @@ const openResultPage = async (url) => {
 };
 
 const getResults = async ({ resultLink, semester, admissionYear, branch }) => {
-  await openResultPage(resultLink);
-  const pinNumbers = getPinNumbers(branch, admissionYear);
-  for (const pin of pinNumbers) {
-    await fillPinNumber(pin);
-    await selectSemester(semester);
-    await click('submit');
-    try {
-      displayResult(pin);
-      await click('back');
-    } catch (error) {
-      await clear(textBox({ id: 'aadhar1' }));
+  try {
+    await openResultPage(resultLink);
+    const pinNumbers = getPinNumbers(branch, admissionYear);
+    for (const pin of pinNumbers) {
+      await fillPinNumber(pin);
+      await selectSemester(semester);
+      await click('submit');
+      try {
+        displayResult(pin);
+        await click('back');
+      } catch (error) {
+        await clear(textBox({ id: 'aadhar1' }));
+      }
     }
+  } catch (error) {
+    throw new Error('Error occurred during automation.');
+  } finally {
+    closeBrowser()
   }
 };
 
