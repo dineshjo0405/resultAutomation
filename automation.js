@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const { openBrowser, goto, write, into, textBox, click, dropDown, evaluate, closeBrowser, waitFor } = require('taiko');
+const { openBrowser, goto, write, into, textBox, click, dropDown, evaluate, closeBrowser, waitFor, clear } = require('taiko');
 
 const getGrandTotal = async () => {
   return await evaluate(() => {
@@ -47,16 +47,16 @@ const getResults = async ({ resultLink, semester, admissionYear, branch }) => {
       await selectSemester(semester);
       await click('submit');
       try {
-        displayResult(pin);
+        await displayResult(pin);
         await click('back');
       } catch (error) {
         await clear(textBox({ id: 'aadhar1' }));
       }
     }
   } catch (error) {
-    throw new Error('Error occurred during automation.');
+    console.error('Error occurred during automation:', error);
   } finally {
-    closeBrowser()
+    await closeBrowser();
   }
 };
 
@@ -93,7 +93,8 @@ const getInputs = async () => {
 
 const startAutomation = async () => {
   const inputs = await getInputs();
-  getResults(inputs);
+  await getResults(inputs);
 };
 
 startAutomation();
+
