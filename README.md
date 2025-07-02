@@ -25,7 +25,7 @@ This project is a result automation tool built using **Node.js**, **Inquirer.js*
 2. Navigate to the project directory:
 
     ```bash
-    cd result-automation
+    cd resultAutomation
     ```
 
 3. Install the necessary dependencies:
